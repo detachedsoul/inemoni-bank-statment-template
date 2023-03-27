@@ -25,4 +25,14 @@
     img {
         @apply object-cover object-center;
     }
+
+    .custom-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        height: .375rem;
+        width: .25rem;
+    }
 }
