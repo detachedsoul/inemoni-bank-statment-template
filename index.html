@@ -1,304 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Inemoni's Bank Statement">
-    <title>Bank State For March 2023</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- <base href="{{basePath}}/" /> -->
+    <style>
+        @font-face {
+            font-family: Mabry Pro;
+            font-weight: 300 400 500 700;
+            font-display: swap;
+            font-style: normal;
+            src: url(./assets/fonts/MabryPro-Regular.woff2) format("woff2"), url(./assets/fonts/MabryPro-Regular.woff) format("woff"), url(./assets/fonts/MabryPro-Regular.ttf) format("truetype"),
+                url(./assets/fonts/MabryPro-Medium.woff2) format("woff2"), url(./assets/fonts/MabryPro-Medium.woff) format("woff"), url(./assets/fonts/MabryPro-Medium.ttf) format("truetype"), url(./assets/fonts/MabryPro-Light.woff2) format("woff2"),
+                url(./assets/fonts/MabryPro-Light.woff) format("woff"), url(./assets/fonts/MabryPro-Light.ttf) format("truetype"), url(./assets/fonts/MabryPro-Bold.woff2) format("woff2"), url(./assets/fonts/MabryPro-Bold.woff) format("woff"),
+                url(./assets/fonts/MabryPro-Bold.ttf) format("truetype");
+        }
 
-    <link rel="stylesheet" href="assets/css/style.css">
+        * {
+            font-family: 'Mabry Pro', sans-serif !important;
+        }
+
+        .statementContainer {
+            margin: 5px;
+        }
+
+        .headerTableRow {
+            align-items: center;
+            gap: 378px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .headerTableRow tr td {
+            padding: 10px 20px;
+        }
+
+        .headerRow .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .headerRow .statementText {
+            font-weight: bold;
+            color: red;
+            font-size: 16px;
+            line-height: 32px;
+            color: #121212;
+        }
+
+        .summaryRow .summaryBlock {
+            background: #6912AA;
+            border-radius: 12px;
+            width: 258px;
+            height: 115px;
+            padding: 14px 16px;
+            color: #ffff;
+            font-size: 0.8rem;
+        }
+
+        .summaryRow .summaryBlock p span {
+            float: right;
+        }
+
+        .transactionsRow {
+            border-radius: 10px;
+            width: 100%;
+            /* table-layout: fixed; */
+        }
+
+        .transactionsRow .tableHeader th {
+            border: none !important;
+            color: #18020C;
+            font-weight: normal;
+            padding: 0.6rem 0.6rem;
+        }
+
+        .transactionsRow tbody {
+            /* color: rgba(24, 2, 12, 0.6); */
+            color: rgba(18, 18, 18, 1);
+        }
+
+        .transactionsRow tbody td {
+            /* padding: 0.7rem 0.7rem; */
+            padding: 25px 9px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .summaryRow,
+        .transactionsRow {
+            margin-top: 2rem;
+        }
+
+        .headerTableRow,
+        .transactionsRow .tableHeader,
+        .disclaimerRow {
+            background: rgba(116, 79, 198, 7%);
+        }
+
+        .disclaimerRow {
+            margin-top: 1rem;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        #watermark {
+            position: fixed;
+            top: 45%;
+            width: 100%;
+            text-align: center;
+            opacity: .1;
+            font-size: 4rem;
+            transform: rotate(30deg);
+            transform-origin: 50% 50%;
+            z-index: -1000;
+        }
+    </style>
 </head>
-<body class="antialiased font-mabry-pro space-y-12 text-base tracking-wider text-[#121212] min-h-screen font-medium">
-    <div class="bg-[rgba(116,79,198,0.02)] flex items-center gap-4 justify-between py-[15px] px-[20px] min-w-max rounded-xl m-8">
-        <img class="h-auto w-[100px]" src="assets/img/logo.svg" alt="Inemoni" width="100" height="auto">
 
-        <h1 class="font-semibold leading-[32px]">
-            Account Statement
-        </h1>
+<body class="statementContainer containerr mb-4">
+    <div id="watermark">
+        **Signed: Inemoni Inc**
     </div>
+    <table class="headerTableRow">
+        <tbody>
+            <tr class="row justify-content-center">
+                <td class="col-auto">
+                    <img class="logo" src="assets/img/logo.svg" alt="Inemoni" width="100" height="auto">
+                </td>
+                <td class="col">
+                    <h6 class="statementText text-end fw-bold mt-1">Account Statement</h6>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-    <div class="grid grid-cols-12 items-center gap-4 m-8">
-        <div class="space-y-5 col-span-4">
-            <h2 class="font-semibold leading-[21px]">
-                Wisdom Ojimah
-            </h2>
+    <table class="summaryRow lh-sm">
+        <thead>
+            <th></th>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr class="row justify-content-between row-cols-2">
+                <td class="col-auto me-auto text-wrap" style="width: 30vw">
+                    <h6 class="fw-bold">{{user.name}}</h6>
+                    <p>{{user.address}}</p>
+                    <p>Account Number: <b>{{user.accountNumber}}</b></p>
+                </td>
+                <td class="col-auto" style="width: 200px"></td>
+                <td class="col-auto">
+                    <div class="summaryBlock">
+                        <p>Date: <span>{{dateRange}}</span></p>
+                        <p>Opening Balance: <span>{{openingBalance}}</span></p>
+                        <p>Opening Balance: <span>{{closingBalance}}</span></p>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-            <p class="text-[#18020C]/80">
-                APT 3, Cele Ejirin, Ejirin Road, Ijebu Ode, Ogun Nigeria.
-            </p>
+    <table class="transactionsRow table">
+        <thead>
+            <tr class="tableHeader">
+                <th scope="col" style="width: 50px">Date</th>
+                <th scope="col">ID</th>
+                <th scope="col">Credit</th>
+                <th scope="col">Debit</th>
+                <th scope="col">Details</th>
+                <th scope="col" style="text-align: right">Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width: 50px">02/04/23<br>12:34 PM</td>
+                <td>#230402123493</td>
+                <td style="color:green"></td>
+                <td style="color:red">1,000</td>
+                <td class="text-break" style="display:blockk; width: 200px">airtime/airtime_dD3e3d</td>
+                <td style="text-align: right">19,000</td>
+            </tr>
+            <tr>
+                <td style="width: 50px">02/04/23<br>12:34 PM</td>
+                <td>#230402123493</td>
+                <td style="color:green">10,000</td>
+                <td style="color:red"></td>
+                <td class="text-break" style="display:blockk; width: 200px">deposit/flutterwave/39nddSsF</td>
+                <td style="text-align: right">10,000</td>
+            </tr>
+        </tbody>
+    </table>
 
-            <p class="text-[#18020C]/80">
-                Account Number: <span class="text-[#18020C] font-semibold">2129058294</span>
-            </p>
-        </div>
-
-        <div class="bg-brand-purple text-white p-6 space-y-6 col-span-8 w-1/2 ml-auto rounded-xl">
-            <div class="flex items-center justify-between gap-4">
-                <p>
-                    Date:
-                </p>
-
-                <p>
-                    9/8/2022 - 5/7/2023
-                </p>
-            </div>
-
-            <div class="flex items-center justify-between gap-4">
-                <p>
-                    Opening Balance:
-                </p>
-
-                <p>
-                    ₦0.00
-                </p>
-            </div>
-
-            <div class="flex items-center justify-between gap-4">
-                <p>
-                    Closing Balance:
-                </p>
-
-                <p>
-                    ₦519,893,890.00
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="overflow-x-auto custom-scrollbar m-8">
-        <table class="w-full table-auto max-w-full">
-            <thead class="text-left bg-[rgba(116,79,198,0.02)]">
-                <tr class="whitespace-nowrap">
-                    <th class="p-[20px] rounded-l-xl">
-                        Date & Time
-                    </th>
-                    <th class="p-[20px]">
-                        Credit (₦)
-                    </th>
-                    <th class="p-[20px]">
-                        Debit (₦)
-                    </th>
-                    <th class="p-[20px]">
-                        Category
-                    </th>
-                    <th class="p-[20px]">
-                        Transaction Details
-                    </th>
-                    <th class="p-[20px]">
-                        Reference No
-                    </th>
-                     <th class="p-[20px] rounded-r-xl">
-                        Balance
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody class="mb-20">
-                <tr class="border-b-[0.5px] border-[rgba(0,0,0,0.1)]">
-                    <td class="p-[20px]">
-                        Tuesday, 02 . 8:34PM
-                    </td>
-                    <td class="p-[20px]">
-
-                    </td>
-                    <td class="p-[20px] text-brand-red">
-                        90,000
-                    </td>
-                    <td class="p-[20px]">
-                        Airtime
-                    </td>
-                    <td class="p-[20px]">
-                        Rep/Airtime/98738
-                    </td>
-                    <td class="p-[20px]">
-                        INE98393037897Q3
-                    </td>
-                    <td class="p-[20px]">
-                        300,000
-                    </td>
-                </tr>
-
-                <tr class="border-b-[0.5px] border-[rgba(0,0,0,0.1)]">
-                    <td class="p-[20px]">
-                        Tuesday, 02 . 8:34PM
-                    </td>
-                    <td class="p-[20px]">
-
-                    </td>
-                    <td class="p-[20px] text-brand-red">
-                        90,000
-                    </td>
-                    <td class="p-[20px]">
-                        Airtime
-                    </td>
-                    <td class="p-[20px]">
-                        Rep/Airtime/98738
-                    </td>
-                    <td class="p-[20px]">
-                        INE98393037897Q3
-                    </td>
-                    <td class="p-[20px]">
-                        300,000
-                    </td>
-                </tr>
-
-                <tr class="border-b-[0.5px] border-[rgba(0,0,0,0.1)]">
-                    <td class="p-[20px]">
-                        Tuesday, 02 . 8:34PM
-                    </td>
-                    <td class="p-[20px] text-brand-green">
-                        890,000
-                    </td>
-                    <td class="p-[20px]">
-
-                    </td>
-                    <td class="p-[20px]">
-                        Airtime
-                    </td>
-                    <td class="p-[20px]">
-                        Rep/Airtime/98738
-                    </td>
-                    <td class="p-[20px]">
-                        INE98393037897Q3
-                    </td>
-                    <td class="p-[20px]">
-                        300,000
-                    </td>
-                </tr>
-
-                <tr class="border-b-[0.5px] border-[rgba(0,0,0,0.1)]">
-                    <td class="p-[20px]">
-                        Tuesday, 02 . 8:34PM
-                    </td>
-                    <td class="p-[20px] text-brand-green">
-                        890,000
-                    </td>
-                    <td class="p-[20px]">
-
-                    </td>
-                    <td class="p-[20px]">
-                        Airtime
-                    </td>
-                    <td class="p-[20px]">
-                        Rep/Airtime/98738
-                    </td>
-                    <td class="p-[20px]">
-                        INE98393037897Q3
-                    </td>
-                    <td class="p-[20px]">
-                        300,000
-                    </td>
-                </tr>
-
-                <tr class="border-b-[0.5px] border-[rgba(0,0,0,0.1)]">
-                    <td class="p-[20px]">
-                        Tuesday, 02 . 8:34PM
-                    </td>
-                    <td class="p-[20px]">
-
-                    </td>
-                    <td class="p-[20px] text-brand-red">
-                        90,000
-                    </td>
-                    <td class="p-[20px]">
-                        Airtime
-                    </td>
-                    <td class="p-[20px]">
-                        Rep/Airtime/98738
-                    </td>
-                    <td class="p-[20px]">
-                        INE98393037897Q3
-                    </td>
-                    <td class="p-[20px]">
-                        300,000
-                    </td>
-                </tr>
-
-                <tr class="border-b-[0.5px] border-[rgba(0,0,0,0.1)]">
-                    <td class="p-[20px]">
-                        Tuesday, 02 . 8:34PM
-                    </td>
-                    <td class="p-[20px]">
-
-                    </td>
-                    <td class="p-[20px] text-brand-red">
-                        90,000
-                    </td>
-                    <td class="p-[20px]">
-                        Airtime
-                    </td>
-                    <td class="p-[20px]">
-                        Rep/Airtime/98738
-                    </td>
-                    <td class="p-[20px]">
-                        INE98393037897Q3
-                    </td>
-                    <td class="p-[20px]">
-                        300,000
-                    </td>
-                </tr>
-
-                <tr class="border-b-[0.5px] border-[rgba(0,0,0,0.1)]">
-                    <td class="p-[20px]">
-                        Tuesday, 02 . 8:34PM
-                    </td>
-                    <td class="p-[20px] text-brand-green">
-                        890,000
-                    </td>
-                    <td class="p-[20px]">
-
-                    </td>
-                    <td class="p-[20px]">
-                        Airtime
-                    </td>
-                    <td class="p-[20px]">
-                        Rep/Airtime/98738
-                    </td>
-                    <td class="p-[20px]">
-                        INE98393037897Q3
-                    </td>
-                    <td class="p-[20px]">
-                        300,000
-                    </td>
-                </tr>
-
-                <tr class="border-b-[0.5px] border-[rgba(0,0,0,0.1)]">
-                    <td class="p-[20px]">
-                        Tuesday, 02 . 8:34PM
-                    </td>
-                    <td class="p-[20px] text-brand-green">
-                        890,000
-                    </td>
-                    <td class="p-[20px]">
-
-                    </td>
-                    <td class="p-[20px]">
-                        Airtime
-                    </td>
-                    <td class="p-[20px]">
-                        Rep/Airtime/98738
-                    </td>
-                    <td class="p-[20px]">
-                        INE98393037897Q3
-                    </td>
-                    <td class="p-[20px]">
-                        300,000
-                    </td>
-                </tr>
-            </tbody>
-
-            <tfoot class="bg-[rgba(116,79,198,0.02)]">
-                <tr>
-                    <td class="p-[20px] mt-20" colspan="100%">
-                        <span class="font-bold">Disclaimer:</span> This is a computer generated statement. Any advice or inquiry must be go
-                        to our customer success team
-                        immediately. Please contact <a href="tel:018898748">018898748</a> or send us an email to <a
-                            href="mailto:support@inemoni.com">support@inemoni.com</a>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+    <table class="disclaimerRow">
+        <tbody>
+            <tr>
+                <td>
+                    <b>Disclaimer:</b> This is a computer generated statement. Any advice or inquiry must be go to our customer success team immediately. Please contact 018898748 or send us an email to support@inemoni.com
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
+
 </html>
